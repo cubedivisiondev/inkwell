@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "inkwell-ink"
+version = "0.1.0"
+description = "Lift ink off paper and into a transparent, print-ready asset."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [{ name = "PUDDY Inc." }]
+keywords = ["signature", "alpha", "background-removal", "print", "vector", "handwriting"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Intended Audience :: End Users/Desktop",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Multimedia :: Graphics :: Graphics Conversion",
+  "Topic :: Printing",
+]
+dependencies = ["numpy>=1.21", "pillow>=9.0", "scipy>=1.7"]
+
+[project.urls]
+Homepage = "https://github.com/cubedivisiondev/inkwell"
+Issues = "https://github.com/cubedivisiondev/inkwell/issues"
+
+[project.scripts]
+inkwell = "inkwell.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/inkwell"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
