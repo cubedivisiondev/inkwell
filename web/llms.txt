@@ -1,0 +1,37 @@
+# INKWELL
+
+> Photograph something you wrote. Get back a transparent, print-ready mark that
+> still looks like ink.
+
+INKWELL extracts hand-inked marks from photographs into an alpha channel. It never
+thresholds the image. The greyscale ramp of the photograph becomes the alpha
+channel directly, so the anti-aliased stroke edge, the pressure variation and the
+dry-marker skip all survive. A hard cut discards them and leaves a flat silhouette
+that reads as clip art.
+
+Two corrections land before that ramp is usable, and both come from the camera
+rather than the ink. Paper is not white: a phone meters for the dark marks, so
+printer paper returns around luma 185. Lighting is not even: there is a gradient
+across the sheet. Flat-field correction solves both by dilating the image past the
+stroke width, which erases the ink and leaves a map of how the sheet was lit, then
+dividing the original by that map.
+
+Grain and edge artifacts are removed by finding the cliff in the component size
+distribution rather than applying a fixed threshold. Ink runs orders of magnitude
+larger than grain, and the gap sits somewhere different in every photograph.
+
+## Privacy
+
+Everything runs on the device. No upload, no server, no account, no network call
+of any kind. The fonts are served from this origin for the same reason. A
+signature is a credential.
+
+## Surfaces
+
+- Live tool: https://inkwell.puddystudios.com/
+- Source: https://github.com/cubedivisiondev/inkwell
+- Command line and library: pip install inkwell-ink
+
+## Author
+
+Colton Dempsey, Puddy Studios. https://puddystudios.com/

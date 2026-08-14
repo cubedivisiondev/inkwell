@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /og/_gallery.html
+
+Sitemap: https://inkwell.puddystudios.com/sitemap.xml
