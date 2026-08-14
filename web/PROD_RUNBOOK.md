@@ -13,10 +13,28 @@ page references is root-absolute, so the tool only works mounted at `/`.
 | Surface | State |
 |---|---|
 | Repo | `github.com/cubedivisiondev/inkwell` PUBLIC, mirrored by `bin/mirror-apps.sh` |
-| GitHub Pages | `cubedivisiondev.github.io/inkwell/web/` LIVE - The interim address |
+| GitHub Pages | **DISABLED 2026-08-14** - See below |
 | Dev host | `inkwell.puddy.dev` NOT CREATED - Bucket, distribution and record all pending |
 | Prod host | `inkwell.puddystudios.com` NOT CREATED |
 | Port | 5199, claimed in RULE 20 |
+
+### Why GitHub Pages was switched off
+
+A project repo on GitHub Pages always serves at `/<repo>/`, never at `/`. These
+tools are root-absolute by design, which is what the standard requires, so every
+reference on the page resolved against the origin and missed: the stylesheet, the
+chrome script, the app module and the starfield all returned 404. The live page
+rendered in Times with no styling and the tool never initialised.
+
+The verifier said forty passes while that was true, because GATE 5 joined each
+reference onto the base path instead of resolving it against the origin the way a
+browser does. Both are fixed. GATE 5 now resolves against the origin and a
+companion gate asserts the page is mounted at the root, so this class of mount
+mismatch fails loudly instead of reading green.
+
+A custom domain is the only way Pages could serve at a root, and that domain is
+`inkwell.puddystudios.com`, which is step 4 below. Until the host exists the tool
+runs locally on port 5199 and from the repo.
 
 ## Step 1 - Dev infrastructure (no founder approval needed; RULE 9 gates PROD only)
 

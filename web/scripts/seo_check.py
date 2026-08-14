@@ -118,13 +118,30 @@ def main(base: str) -> int:
     (ok if re.search(r'<footer id="foot"', html)
      else bad)("GATE 4 chrome: static no-JS footer present for crawlers")
 
-    # --- GATE 5: every served asset resolves ---
+    # --- GATE 5: every served asset resolves THE WAY A BROWSER RESOLVES IT ---
+    #
+    # This gate was wrong once and the mistake is worth keeping written down. It
+    # used to join each reference onto the base path, so a page mounted at
+    # /inkwell/web/ appeared to resolve /style/base.css as /inkwell/web/style/base.css
+    # and the gate went green. A browser does not do that. A root-absolute URL
+    # resolves against the ORIGIN, so the real page loaded unstyled with four 404s
+    # while the verifier reported forty passes.
+    #
+    # Resolving against the origin is what the browser does, so that is what this
+    # does. It also means the gate now enforces the standard's mount requirement:
+    # these tools are root-absolute by design and only work mounted at /.
+    origin = re.match(r"^(https?://[^/]+)", base).group(1)
+    mounted_at_root = base.rstrip("/") == origin
     refs = set(re.findall(r'(?:href|src)="(/[^"#?]+(?:\?v=\d+)?)"', html))
     refs |= {"/manifest.json", "/robots.txt", "/sitemap.xml", "/llms.txt", "/sw.js", "/404.html"}
-    missing = [r for r in sorted(refs) if head(base + r) != 200]
+    missing = [r for r in sorted(refs) if head(origin + r) != 200]
     (ok if not missing else bad)(
-        f"GATE 5 assets: {len(refs) - len(missing)}/{len(refs)} resolve"
+        f"GATE 5 assets: {len(refs) - len(missing)}/{len(refs)} resolve against the origin"
         + (f" - MISSING {missing}" if missing else ""))
+    (ok if mounted_at_root else bad)(
+        f"GATE 5 mount: served at the origin root"
+        + ("" if mounted_at_root else f" - MOUNTED AT {base[len(origin):]}, "
+           "root-absolute references cannot resolve"))
 
     # --- GATE 6: no off-origin request, the privacy claim ---
     css_status, css, _ = get(base + "/style/base.css")
