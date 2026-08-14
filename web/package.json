@@ -1,0 +1,8 @@
+{
+  "name": "inkwell-web",
+  "private": true,
+  "description": "INKWELL browser front end. Static, no build step, no dependencies.",
+  "scripts": {
+    "dev": "npx http-server . -p 5199 -c-1 -o"
+  }
+}
