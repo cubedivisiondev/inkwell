@@ -11,7 +11,7 @@
  * megabyte result crosses the boundary in constant time.
  */
 
-import { extract } from './inkwell.js';
+import { extract } from './engine.js';
 
 self.onmessage = async (e) => {
   const { blob, opts, id } = e.data;

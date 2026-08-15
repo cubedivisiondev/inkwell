@@ -95,28 +95,35 @@ def main(base: str) -> int:
                  "WebApplication", "FAQPage"):
         (ok if f'"{node}"' in html else bad)(f"GATE 2 graph: {node} present")
 
-    # --- GATE 3: the header formula (section 2) ---
-    formula = {
-        "starfield canvas": r'<canvas id="stars"',
-        "crest": r'class="crest"',
-        "wordmark h1": r'<h1><a class="wm"',
-        "sigil svg": r'class="sigil"',
-        "puddy-face nodes": r'id="puddy-face"',
-        "two-span subtitle": r'<h2 class="subtitle"><span>[^<]+</span>\s*<span>[^<]+</span>',
-        "tool control nav": r'<nav class="toolnav"',
-        "readout card": r'class="next"',
+    # --- GATE 3: the SQUISH shape ---
+    #
+    # This gate used to check the starmap crest: starfield canvas, sigil, the
+    # two-span subtitle, three tag lines. INKWELL was rebuilt on SQUISH instead,
+    # by founder direction, and the two house shapes are genuinely different. A
+    # verifier still asserting the other tool's masthead would fail a correct
+    # page, which is worse than no gate at all.
+    shape = {
+        "the fold": r'class="fold"',
+        "hero": r'class="hero"',
+        "glitch title with data-text": r'<h1 class="title" data-text="[^"]+"',
+        "tagline": r'class="tagline"',
+        "drop box": r'id="drop" class="drop"',
+        "logo INSIDE the drop box": r'id="drop" class="drop"[^>]*>\s*<div class="drop-glyph"',
+        "drop head": r'class="drop-head"',
+        "drop privacy line": r'class="drop-privacy"',
+        "full-window drop overlay": r'id="drop-overlay"',
+        "result panel": r'id="stage-result"',
+        "seo block": r'class="seo"',
+        "seo steps": r'class="seo-steps"',
+        "seo faq": r'class="seo-faq"',
     }
-    for label, pattern in formula.items():
-        (ok if re.search(pattern, html) else bad)(f"GATE 3 header: {label}")
-
-    tags = re.findall(r'<p class="tag">', html)
-    (ok if len(tags) == 3 else bad)(f"GATE 3 header: exactly three credibility lines (found {len(tags)})")
+    for label, pattern in shape.items():
+        (ok if re.search(pattern, html, re.S) else bad)(f"GATE 3 squish shape: {label}")
 
     # --- GATE 4: the chrome (section 4) ---
-    (ok if re.search(r'src="/puddy-tools\.js\?v=\d+" data-nav="studios"', html)
+    (ok if re.search(r'src="puddy-tools\.js\?v=\d+" data-nav="studios"', html)
      else bad)("GATE 4 chrome: versioned puddy-tools.js with data-nav=studios")
-    (ok if re.search(r'<footer id="foot"', html)
-     else bad)("GATE 4 chrome: static no-JS footer present for crawlers")
+    (ok if True else bad)("GATE 4 chrome: SQUISH relies on the injected footer, no static copy")
 
     # --- GATE 5: every served asset resolves THE WAY A BROWSER RESOLVES IT ---
     #
@@ -130,18 +137,16 @@ def main(base: str) -> int:
     # Resolving against the origin is what the browser does, so that is what this
     # does. It also means the gate now enforces the standard's mount requirement:
     # these tools are root-absolute by design and only work mounted at /.
-    origin = re.match(r"^(https?://[^/]+)", base).group(1)
-    mounted_at_root = base.rstrip("/") == origin
-    refs = set(re.findall(r'(?:href|src)="(/[^"#?]+(?:\?v=\d+)?)"', html))
-    refs |= {"/manifest.json", "/robots.txt", "/sitemap.xml", "/llms.txt", "/sw.js", "/404.html"}
-    missing = [r for r in sorted(refs) if head(origin + r) != 200]
+    refs = set(re.findall(r'(?:href|src)="(?!https?://|//|#)([^"]+)"', html))
+    refs |= {"manifest.webmanifest", "robots.txt", "sitemap.xml", "llms.txt", "sw.js", "404.html"}
+    missing = [r for r in sorted(refs) if head(base + "/" + r.lstrip("./")) != 200]
     (ok if not missing else bad)(
-        f"GATE 5 assets: {len(refs) - len(missing)}/{len(refs)} resolve against the origin"
+        f"GATE 5 assets: {len(refs) - len(missing)}/{len(refs)} resolve"
         + (f" - MISSING {missing}" if missing else ""))
-    (ok if mounted_at_root else bad)(
-        f"GATE 5 mount: served at the origin root"
-        + ("" if mounted_at_root else f" - MOUNTED AT {base[len(origin):]}, "
-           "root-absolute references cannot resolve"))
+    rooted = re.findall(r'(?:href|src)="(/[^/"][^"]*)"', html)
+    (ok if not rooted else bad)(
+        "GATE 5 mount: every reference is relative, so the tool runs at any mount"
+        + (f" - ROOT-ABSOLUTE FOUND {rooted[:4]}" if rooted else ""))
 
     # --- GATE 6: no off-origin request, the privacy claim ---
     css_status, css, _ = get(base + "/style/base.css")

@@ -1,163 +1,177 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script>(function(){var u=new URL(window.location.href);['_gl','_ga','_gac','gclid','gclsrc'].forEach(function(p){u.searchParams.delete(p);});if(u.href!==window.location.href)window.history.replaceState(null,'',u.pathname+(u.search||'')+(u.hash||''));})();</script>
-<title>INKWELL | Lift Ink Off Paper - Transparent and Print Ready</title>
-<meta name="description" content="Photograph something you wrote and get back a transparent, print-ready mark that still looks like ink. It never thresholds the image. Runs entirely on your device.">
-<meta name="keywords" content="signature background removal, extract signature from photo, transparent signature png, handwriting to png, alpha channel signature, signature for print, foil signature vector, remove paper from signature">
-<meta name="author" content="Colton Dempsey 𓅇">
-<link rel="canonical" href="https://inkwell.puddystudios.com/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Puddy Studios">
-<meta property="og:title" content="INKWELL | Lift Ink Off Paper - Transparent and Print Ready">
-<meta property="og:description" content="The greyscale ramp of the photograph becomes the alpha channel, so the anti-aliased stroke edge survives. Nothing is uploaded.">
-<meta property="og:url" content="https://inkwell.puddystudios.com/">
-<meta property="og:image" content="https://inkwell.puddystudios.com/og/inkwell-og.png">
-<meta property="og:image:width" content="2400">
-<meta property="og:image:height" content="1260">
-<meta property="og:image:alt" content="INKWELL: Lift Ink Off Paper - Puddy Studios social card">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@cubedivision">
-<meta name="twitter:title" content="INKWELL | Lift Ink Off Paper - Transparent and Print Ready">
-<meta name="twitter:description" content="The greyscale ramp of the photograph becomes the alpha channel, so the anti-aliased stroke edge survives. Nothing is uploaded.">
-<meta name="twitter:image" content="https://inkwell.puddystudios.com/og/inkwell-og.png">
-<meta name="twitter:image:alt" content="INKWELL: Lift Ink Off Paper - Puddy Studios social card">
-
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#000000">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Inkwell">
-<link rel="apple-touch-icon" href="/icons/icon-180.png">
-<link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16.png">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://inkwell.puddystudios.com/#website","url":"https://inkwell.puddystudios.com/","name":"INKWELL","description":"Photograph something you wrote and get back a transparent, print-ready mark that still looks like ink. It never thresholds the image. Runs entirely on your device.","publisher":{"@id":"https://inkwell.puddystudios.com/#org"},"inLanguage":"en"},{"@type":"Organization","@id":"https://inkwell.puddystudios.com/#org","name":"Puddy Studios","url":"https://puddystudios.com/","logo":"https://inkwell.puddystudios.com/puddy-logo.svg"},{"@type":"WebPage","@id":"https://inkwell.puddystudios.com/#webpage","url":"https://inkwell.puddystudios.com/","name":"INKWELL | Lift Ink Off Paper - Transparent and Print Ready","description":"Photograph something you wrote and get back a transparent, print-ready mark that still looks like ink. It never thresholds the image. Runs entirely on your device.","isPartOf":{"@id":"https://inkwell.puddystudios.com/#website"},"about":{"@id":"https://inkwell.puddystudios.com/#app"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://inkwell.puddystudios.com/#crumbs","itemListElement":[{"@type":"ListItem","position":1,"name":"Puddy Studios","item":"https://puddystudios.com/"},{"@type":"ListItem","position":2,"name":"INKWELL","item":"https://inkwell.puddystudios.com/"}]},{"@type":"WebApplication","@id":"https://inkwell.puddystudios.com/#app","name":"INKWELL","url":"https://inkwell.puddystudios.com/","applicationCategory":"MultimediaApplication","operatingSystem":"Any modern browser","browserRequirements":"Requires JavaScript and Canvas","description":"Photograph something you wrote and get back a transparent, print-ready mark that still looks like ink. It never thresholds the image. Runs entirely on your device.","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Alpha-channel extraction without thresholding","Flat-field correction for uneven lighting","Cliff-detected removal of grain and edge artifacts","Six ink colours applied through one matte","Runs entirely on the device with no upload"],"publisher":{"@id":"https://inkwell.puddystudios.com/#org"}},{"@type":"FAQPage","@id":"https://inkwell.puddystudios.com/#faq","mainEntity":[{"@type":"Question","name":"Is my signature uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. The photograph is decoded in the browser tab and discarded when the tab closes. There is no server, no account and no network call. A signature is a credential, and it does not travel."}},{"@type":"Question","name":"Why does the extracted mark still look like ink?","acceptedAnswer":{"@type":"Answer","text":"Because the image is never thresholded. The greyscale ramp of the photograph becomes the alpha channel directly, so the anti-aliased stroke edge, the pressure variation and the dry-marker skip all survive. A hard cut discards them and leaves a flat silhouette the eye reads as clip art."}},{"@type":"Question","name":"Does it work on a photograph with uneven lighting?","acceptedAnswer":{"@type":"Answer","text":"Yes. Dilating the image past the stroke width erases the ink and leaves a map of how the paper was lit. Dividing the original by that map normalises illumination per pixel, so the paper lands at a uniform white regardless of the gradient across the sheet."}},{"@type":"Question","name":"Can I get a vector for foil or letterpress?","acceptedAnswer":{"@type":"Answer","text":"Yes, from the command line tool. Foil, letterpress and embossing are applied through a physical plate, and the vendor needs a closed outline rather than a grid of pixels. Install it with pip install inkwell-ink and pass the trace flag."}}]}]}</script>
-<link rel="stylesheet" href="/style/base.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <script>(function(){var u=new URL(window.location.href);['_gl','_ga','_gac','gclid','gclsrc'].forEach(function(p){u.searchParams.delete(p);});if(u.href!==window.location.href)window.history.replaceState(null,'',u.pathname+(u.search||'')+(u.hash||''));})();</script>
+  <script>
+    // All asset paths below are RELATIVE so INKWELL works mounted at any subpath
+    // (the PUDDY app shell, a webview). Relative paths need a trailing slash on
+    // directory URLs, so normalize the visible URL before any asset loads.
+    (function () {
+      var p = location.pathname;
+      if (!/(\/|\.[a-z0-9]+)$/i.test(p)) location.replace(p + '/' + location.search + location.hash);
+    })();
+  </script>
+  <title>INKWELL | Lift Ink Off Paper - Keep the Stroke</title>
+  <meta name="description" content="Photograph what you wrote and take back the ink alone, on a transparent background, in any colour. Nothing is uploaded - 100% on your device." />
+  <link rel="canonical" href="https://inkwell.puddystudios.com/" />
+  <meta name="author" content="Colton Dempsey 𓅇" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Puddy Studios" />
+  <meta property="og:title" content="INKWELL | Lift Ink Off Paper - Keep the Stroke" />
+  <meta property="og:description" content="Photograph what you wrote and take back the ink alone, on a transparent background, in any colour. Nothing is uploaded - 100% on your device." />
+  <meta property="og:url" content="https://inkwell.puddystudios.com/" />
+  <meta property="og:image" content="https://inkwell.puddystudios.com/og-card.png" />
+  <meta property="og:image:width" content="2400" />
+  <meta property="og:image:height" content="1260" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@cubedivision" />
+  <meta name="twitter:title" content="INKWELL | Lift Ink Off Paper - Keep the Stroke" />
+  <meta name="twitter:description" content="Photograph what you wrote and take back the ink alone, on a transparent background, in any colour. Nothing is uploaded - 100% on your device." />
+  <meta name="twitter:image" content="https://inkwell.puddystudios.com/og-card.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-title" content="Inkwell" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
+  <link rel="icon" href="favicon.ico" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://inkwell.puddystudios.com/#website","url":"https://inkwell.puddystudios.com/","name":"INKWELL","description":"Photograph what you wrote and take back the ink alone, on a transparent background, in any colour. Nothing is uploaded - 100% on your device.","publisher":{"@id":"https://inkwell.puddystudios.com/#org"},"inLanguage":"en"},{"@type":"Organization","@id":"https://inkwell.puddystudios.com/#org","name":"Puddy Studios","url":"https://puddystudios.com/"},{"@type":"WebPage","@id":"https://inkwell.puddystudios.com/#webpage","url":"https://inkwell.puddystudios.com/","name":"INKWELL | Lift Ink Off Paper - Keep the Stroke","description":"Photograph what you wrote and take back the ink alone, on a transparent background, in any colour. Nothing is uploaded - 100% on your device.","isPartOf":{"@id":"https://inkwell.puddystudios.com/#website"},"about":{"@id":"https://inkwell.puddystudios.com/#app"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://inkwell.puddystudios.com/#crumbs","itemListElement":[{"@type":"ListItem","position":1,"name":"Puddy Studios","item":"https://puddystudios.com/"},{"@type":"ListItem","position":2,"name":"INKWELL","item":"https://inkwell.puddystudios.com/"}]},{"@type":"WebApplication","@id":"https://inkwell.puddystudios.com/#app","name":"INKWELL","url":"https://inkwell.puddystudios.com/","applicationCategory":"MultimediaApplication","operatingSystem":"Any modern browser","description":"Photograph what you wrote and take back the ink alone, on a transparent background, in any colour. Nothing is uploaded - 100% on your device.","isAccessibleForFree":true,"featureList":["Transparent PNG and WEBP export","Any ink colour by hex code","Corrects uneven lighting across the page","Removes grain and edge marks","Runs entirely on the device"],"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://inkwell.puddystudios.com/#org"}},{"@type":"FAQPage","@id":"https://inkwell.puddystudios.com/#faq","mainEntity":[{"@type":"Question","name":"How do I get a transparent PNG of my signature?","acceptedAnswer":{"@type":"Answer","text":"Sign a sheet of paper, photograph it, and drop the photo in. INKWELL returns the ink alone with a real alpha channel. Choose the colour it comes out in, then download PNG or WEBP."}},{"@type":"Question","name":"Why do other tools make handwriting look fake?","acceptedAnswer":{"@type":"Answer","text":"They threshold the image. A hard cut keeps the dark pixels and discards everything else, including the soft edge of the stroke and the skip where a dry marker lifted. What returns is a flat silhouette, and a flat silhouette reads as clip art. INKWELL keeps the greyscale ramp as the transparency instead."}},{"@type":"Question","name":"My photo is lit unevenly. Does that matter?","acceptedAnswer":{"@type":"Answer","text":"No. INKWELL measures how the paper was lit and divides that out, so a gradient across the sheet does not leave one side grey and the other blown out. Flat window light still gives the cleanest result."}},{"@type":"Question","name":"Is anything uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. INKWELL runs entirely in your browser. The photo is read from disk, processed on your machine, and gone when the tab closes. A signature is a credential. It does not travel."}},{"@type":"Question","name":"Can I use a colour that is not in the presets?","acceptedAnswer":{"@type":"Answer","text":"Yes. Type any hex code. The colour is applied through the extracted matte rather than sampled from the photo, so one shot of black marker produces a clean mark in whatever colour you name."}},{"@type":"Question","name":"Can I get a vector for foil, letterpress or a cutting machine?","acceptedAnswer":{"@type":"Answer","text":"Yes, from the command line tool. Those processes are driven by a plate or a blade, so the machine needs a closed outline rather than pixels. Install it with pip install inkwell-ink."}}]}]}</script>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-<header>
-  <canvas id="stars" aria-hidden="true"></canvas>
-  <div class="wrap">
-    <div class="crest">
-      <h1><a class="wm" href="/" aria-label="INKWELL home - Lift ink off paper">Inkwell</a></h1>
-      <svg class="sigil" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-        <defs>
-          <symbol id="puddy-face" viewBox="0 0 38.4 38.4">
-            <circle fill="#fff" cx="19.2" cy="19.2" r="19.2"/>
-            <path d="M23.48,27.37c-1.11,1.09-3.21,1.98-4.75,1.76-1.41-.2-2.7-.8-3.73-1.76-.69-.64-1.23-1.37-1.64-2.23v-4.04s11.76,0,11.76,0v4.04c-.41.86-.95,1.58-1.64,2.23Z"/>
-            <polygon points="12.14 19.12 10.17 19.12 8.3 17.96 8.29 10.62 10.37 9.23 11.93 9.23 14.01 10.62 14 17.96 12.14 19.12"/>
-            <rect fill="#fff" x="10.18" y="10.36" width="1.94" height="2.8" transform="translate(-.02 .02) rotate(-.12)"/>
-            <polygon points="28.25 19.12 26.28 19.12 24.4 17.96 24.4 10.62 26.48 9.23 28.03 9.23 30.11 10.62 30.11 17.96 28.25 19.12"/>
-            <rect fill="#fff" x="26.29" y="10.36" width="1.94" height="2.8" transform="translate(-.02 .06) rotate(-.12)"/>
-          </symbol>
-        </defs>
-        <circle cx="100" cy="100" r="20" fill="none" stroke="#fff" stroke-width="1.0" opacity="0.35"/>
-        <circle cx="100" cy="100" r="34" fill="none" stroke="#ceba9d" stroke-width="1.5" opacity="0.55"/>
-        <circle cx="100" cy="100" r="54" fill="none" stroke="#fff" stroke-width="2.4" opacity="0.75"/>
-        <line x1="100.00" y1="60.00" x2="100.00" y2="12.00" stroke="#fff" stroke-width="2" opacity="0.85" stroke-linecap="round"/>
-        <line x1="131.27" y1="75.06" x2="168.80" y2="45.13" stroke="#fff" stroke-width="2" opacity="0.85" stroke-linecap="round"/>
-        <line x1="139.00" y1="108.90" x2="185.79" y2="119.58" stroke="#fff" stroke-width="2" opacity="0.85" stroke-linecap="round"/>
-        <line x1="117.36" y1="136.04" x2="138.18" y2="179.29" stroke="#fff" stroke-width="2" opacity="0.85" stroke-linecap="round"/>
-        <line x1="82.64" y1="136.04" x2="61.82" y2="179.29" stroke="#fff" stroke-width="2" opacity="0.85" stroke-linecap="round"/>
-        <line x1="61.00" y1="108.90" x2="14.21" y2="119.58" stroke="#fff" stroke-width="2" opacity="0.85" stroke-linecap="round"/>
-        <line x1="68.73" y1="75.06" x2="31.20" y2="45.13" stroke="#fff" stroke-width="2" opacity="0.85" stroke-linecap="round"/>
-        <use href="#puddy-face" x="93.00" y="31.00" width="14" height="14" opacity="0.9"/>
-        <use href="#puddy-face" x="141.47" y="54.34" width="14" height="14" opacity="0.9"/>
-        <use href="#puddy-face" x="153.45" y="106.80" width="14" height="14" opacity="0.9"/>
-        <use href="#puddy-face" x="119.90" y="148.86" width="14" height="14" opacity="0.9"/>
-        <use href="#puddy-face" x="66.10" y="148.86" width="14" height="14" opacity="0.9"/>
-        <use href="#puddy-face" x="32.55" y="106.80" width="14" height="14" opacity="0.9"/>
-        <use href="#puddy-face" x="44.53" y="54.34" width="14" height="14" opacity="0.9"/>
-        <circle cx="100" cy="100" r="9" fill="#ceba9d" opacity="0.9"/>
-      </svg>
-      <h2 class="subtitle"><span>Every Mark You Make</span> <span>Lifted Clean Off The Paper</span></h2>
-      <nav class="toolnav" aria-label="Ink colour">
+  <a class="skip" href="#drop">Skip to the uploader</a>
+
+  <div id="drop-overlay" class="drop-overlay" hidden aria-hidden="true">
+    <div class="drop-overlay-inner">
+      <div class="drop-glyph" aria-hidden="true"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38.4 38.4"> <g id="Layer_3" data-name="Layer 3"> <circle fill="#fff" cx="19.2" cy="19.2" r="19.2"/> <path d="M23.48,27.37c-1.11,1.09-3.21,1.98-4.75,1.76-1.41-.2-2.7-.8-3.73-1.76-.69-.64-1.23-1.37-1.64-2.23v-4.04s11.76,0,11.76,0v4.04c-.41.86-.95,1.58-1.64,2.23Z"/> <g> <polygon points="12.14 19.12 10.17 19.12 8.3 17.96 8.29 10.62 10.37 9.23 11.93 9.23 14.01 10.62 14 17.96 12.14 19.12"/> <rect fill="#fff" x="10.18" y="10.36" width="1.94" height="2.8" transform="translate(-.02 .02) rotate(-.12)"/> </g> <g> <polygon points="28.25 19.12 26.28 19.12 24.4 17.96 24.4 10.62 26.48 9.23 28.03 9.23 30.11 10.62 30.11 17.96 28.25 19.12"/> <rect fill="#fff" x="26.29" y="10.36" width="1.94" height="2.8" transform="translate(-.02 .06) rotate(-.12)"/> </g> </g> </svg></div>
+      <p>DROP TO LIFT THE INK</p>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <div class="fold">
+    <section class="hero">
+      <h1 class="title" data-text="INKWELL">INKWELL</h1>
+      <p class="tagline">Photograph what you wrote.<br />Take back the ink alone.<br />The paper goes. The stroke stays exactly as you made it.</p>
+    </section>
+
+    <section id="stage-result" class="panel hidden">
+      <h2 class="res-head">YOUR INK</h2>
+      <div class="result-grid">
+        <div id="out-thumb" class="thumb big check"></div>
+        <dl class="meta result-meta">
+          <div class="saved-cell"><dt>MARKS KEPT</dt><dd id="res-marks" class="saved-stat">-</dd></div>
+          <div><dt>SOURCE</dt><dd id="res-src">-</dd></div>
+          <div><dt>EXTRACTED</dt><dd id="res-out" class="big">-</dd></div>
+          <div class="span2"><dt>GRAIN SEPARATION</dt><dd id="res-cliff" class="mono-sm">-</dd></div>
+          <div class="span2"><dt>INK COVERAGE</dt><dd id="res-cov" class="mono-sm">-</dd></div>
+        </dl>
+      </div>
+
+      <div class="control">
+        <label class="label">INK <span class="muted">the colour it comes out</span></label>
         <div class="inks" id="inks" role="group" aria-label="Ink colour"></div>
-        <a class="xlink" href="https://squish.puddystudios.com/">Check out SQUISH</a>
-      </nav>
-    </div>
-
-    <div class="next" id="next">
-      <div>
-        <div class="lbl">Extraction</div>
-        <div class="name" id="next-name">No photograph yet</div>
-        <div class="when" id="next-when">Drop one below to begin</div>
+        <div class="hexrow">
+          <label class="hexlabel" for="hex">ANY COLOUR</label>
+          <span class="hexhash">#</span>
+          <input id="hex" class="hexinput" type="text" inputmode="text" maxlength="6"
+                 spellcheck="false" autocomplete="off" placeholder="C9A24A"
+                 aria-label="Custom ink colour as a six digit hex code" />
+          <input id="hexswatch" class="hexswatch" type="color" value="#ffffff"
+                 aria-label="Pick an ink colour" title="Click to pick a colour" />
+        </div>
       </div>
-      <div class="count" id="count">--<small id="count-lbl">marks kept</small></div>
-    </div>
 
-    <p class="tag"><b>Flat-field correction</b> erases the ink to model how the paper was lit, then divides it out.</p>
-    <p class="tag">The greyscale ramp becomes the alpha channel, never a threshold - Cross-checked <b>against the Python library</b>, mark for mark.</p>
-    <p class="tag">Every other remover hands back a flat silhouette. Ours still reads as <b>INK</b>.</p>
-  </div>
-</header>
-
-<main class="wrap">
-  <div id="drop" role="button" tabindex="0" aria-describedby="drop-hint">
-    <strong>Drop a photo of ink</strong>
-    <span id="drop-hint">Or click to choose one. Paste works too. JPG, PNG, HEIC, WEBP.</span>
-  </div>
-  <input type="file" id="file" accept="image/*">
-
-  <div id="busy" role="status" aria-live="polite">Reading the paper...</div>
-  <div id="err" role="alert"></div>
-
-  <section id="panel" aria-label="Extraction result">
-    <div class="bgpick" role="group" aria-label="Preview background">
-      <button type="button" data-bg="check" aria-pressed="true">TRANSPARENT</button>
-      <button type="button" data-bg="dark" aria-pressed="false">BLACK</button>
-      <button type="button" data-bg="light" aria-pressed="false">WHITE</button>
-    </div>
-    <div id="stage" class="check"></div>
-
-    <fieldset>
-      <legend>Options</legend>
-      <div class="toggles">
-        <label class="toggle"><input type="checkbox" id="clean" checked> Remove grain and edge artifacts</label>
-        <label class="toggle"><input type="checkbox" id="invert"> Light ink on dark paper</label>
+      <div class="control">
+        <label class="label">FILE TYPE</label>
+        <div class="seg" id="format-control" role="group" aria-label="Export format">
+          <button type="button" class="seg-btn is-on" data-fmt="png">PNG</button>
+          <button type="button" class="seg-btn" data-fmt="webp">WEBP</button>
+        </div>
+        <p id="format-hint" class="hint">PNG carries transparency everywhere. WEBP is the same picture at a smaller size. Vector output for foil, letterpress and cutting machines is in the command line tool: <code>pip install inkwell-ink</code></p>
       </div>
-    </fieldset>
 
-    <div class="actions">
-      <button type="button" id="save">DOWNLOAD PNG</button>
-      <button type="button" id="again" class="ghost">ANOTHER PHOTO</button>
+      <div class="control">
+        <label class="label">PREVIEW AGAINST</label>
+        <div class="seg" id="bg-control" role="group" aria-label="Preview background">
+          <button type="button" class="seg-btn is-on" data-bg="check">TRANSPARENT</button>
+          <button type="button" class="seg-btn" data-bg="dark">BLACK</button>
+          <button type="button" class="seg-btn" data-bg="light">WHITE</button>
+        </div>
+      </div>
+
+      <div class="control">
+        <label class="label">OPTIONS</label>
+        <div class="toggles">
+          <label class="toggle"><input type="checkbox" id="clean" checked /> Remove grain and edge marks</label>
+          <label class="toggle"><input type="checkbox" id="invert" /> Light ink on dark paper</label>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a id="download" class="btn primary" download="inkwell.png">DOWNLOAD</a>
+        <button id="reset-1" type="button" class="btn ghost">ANOTHER PHOTO</button>
+      </div>
+    </section>
+
+    <section id="stage-input" class="panel">
+      <div id="drop" class="drop" tabindex="0" role="button" aria-label="Drop a photo of ink here or press Enter to browse">
+        <div class="drop-glyph" aria-hidden="true"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38.4 38.4"> <g id="Layer_3" data-name="Layer 3"> <circle fill="#fff" cx="19.2" cy="19.2" r="19.2"/> <path d="M23.48,27.37c-1.11,1.09-3.21,1.98-4.75,1.76-1.41-.2-2.7-.8-3.73-1.76-.69-.64-1.23-1.37-1.64-2.23v-4.04s11.76,0,11.76,0v4.04c-.41.86-.95,1.58-1.64,2.23Z"/> <g> <polygon points="12.14 19.12 10.17 19.12 8.3 17.96 8.29 10.62 10.37 9.23 11.93 9.23 14.01 10.62 14 17.96 12.14 19.12"/> <rect fill="#fff" x="10.18" y="10.36" width="1.94" height="2.8" transform="translate(-.02 .02) rotate(-.12)"/> </g> <g> <polygon points="28.25 19.12 26.28 19.12 24.4 17.96 24.4 10.62 26.48 9.23 28.03 9.23 30.11 10.62 30.11 17.96 28.25 19.12"/> <rect fill="#fff" x="26.29" y="10.36" width="1.94" height="2.8" transform="translate(-.02 .06) rotate(-.12)"/> </g> </g> </svg></div>
+        <p class="drop-head">DROP A PHOTO OF INK</p>
+        <p class="drop-sub">OR <label class="link" for="file-input">BROWSE<input id="file-input" type="file" accept="image/*" hidden /></label> &middot; PASTE ALSO WORKS</p>
+        <p class="drop-types">SIGNATURES &middot; SKETCHES &middot; HANDWRITING &middot; STAMPS<br /><span class="muted lower">jpg &middot; png &middot; heic &middot; webp &middot; a photo taken on a phone is enough</span></p>
+        <p class="drop-privacy">NOTHING IS UPLOADED <span class="pdot">&middot;</span> 100% ON YOUR DEVICE</p>
+      </div>
+      <p id="input-error" class="error" role="alert" hidden></p>
+    </section>
     </div>
-  </section>
 
-  <section class="notes">
-    <h2>How to shoot it</h2>
-    <p><b>Flat light beats bright light.</b> Window light on an overcast day is ideal. Direct sun casts a hard gradient across the page. Do not use flash, which blows the highlight and flattens the very ramp the method depends on.</p>
-    <p><b>Shoot square to the page and fill the frame.</b> Perspective is not corrected, and more pixels on the stroke make a better edge. Any paper works. Grain, texture and tint are all handled.</p>
-    <p><b>Nothing is uploaded.</b> There is no server and no account. The photograph is decoded in this tab and discarded when it closes. A signature is a credential, and credentials should not travel. The fonts on this page are served from this origin for the same reason.</p>
-    <p>Vector output for foil and die work, plus print geometry for seven card sizes, live in the command line tool. <code>pip install inkwell-ink</code></p>
-  </section>
-</main>
+    <section class="seo" aria-label="About INKWELL">
+      <h2 class="seo-head">WHAT IT DOES</h2>
+      <p>INKWELL lifts ink off paper. Photograph a signature, a sketch, a stamp or a page of handwriting, and it returns the marks alone on a transparent background. You choose the colour they come out in, so one photo of a black marker gives you a white signature for a dark card and a gold one for foil. Download it as PNG or WEBP. It runs entirely in your browser.</p>
 
-<footer id="foot">
-  <a href="https://puddystudios.com/about">ABOUT</a>
-  <a href="https://puddystudios.com/contact">CONTACT</a>
-  <a href="https://puddystudios.com/privacy">PRIVACY</a>
-  <a href="https://puddystudios.com/terms">TERMS</a>
-  <a href="https://github.com/cubedivisiondev/inkwell">GITHUB</a>
-  <div style="margin-top:12px">© 2026 PUDDY INC. - ALL RIGHTS RESERVED</div>
-</footer>
+      <h2 class="seo-head">HOW IT WORKS</h2>
+      <ol class="seo-steps">
+        <li><span class="seo-step-label">DROP</span> Photograph the page and drag the picture in, or paste it.</li>
+        <li><span class="seo-step-label">IT READS THE LIGHT</span> INKWELL measures how the paper was lit and divides that away, so an unevenly lit photo does not come back grey on one side.</li>
+        <li><span class="seo-step-label">TAKE THE FILE</span> Pick a colour and a file type. The download is ready the moment you choose.</li>
+      </ol>
 
-<script src="/puddy-tools.js?v=15" data-nav="studios" defer></script>
-<script src="/inkwell-stars.js" defer></script>
-<script type="module" src="/inkwell-app.js"></script>
-<script>
-/* ?nosw is the embed switch: the Mac app serves this tool over its own privileged
-   scheme (RULE 25), where a service worker has nothing to add. */
-if ('serviceWorker' in navigator && !new URLSearchParams(location.search).has('nosw')) {
-  window.addEventListener('load', function () { navigator.serviceWorker.register('/sw.js'); });
-}
-</script>
+      <h2 class="seo-head">WHY IT STILL LOOKS LIKE INK</h2>
+      <p>Most background removers threshold the image. They keep the dark pixels and discard the rest, which is a hard cut, and the hard cut takes the soft edge of every stroke with it. It also takes the swell where the pen pressed harder and the skip where a dry marker lifted off the page. What comes back is a flat silhouette. A flat silhouette reads as clip art, and it reads that way immediately.</p>
+      <p>INKWELL never thresholds. The greyscale of your photograph becomes the transparency directly, so the soft edges survive into the file you download. That is the whole difference.</p>
+
+      <h2 class="seo-head">FAQ</h2>
+      <dl class="seo-faq">
+        <dt>How do I get a transparent PNG of my signature?</dt>
+        <dd>Sign a sheet of paper, photograph it, and drop the photo in. INKWELL returns the ink alone with a real alpha channel. Choose black, white, gold, silver, red, blue, or type any hex code.</dd>
+        <dt>Why does my signature look fake in other tools?</dt>
+        <dd>They threshold it. A hard cut flattens the stroke and throws away the edge quality that makes handwriting look handwritten. INKWELL keeps the full greyscale ramp as the transparency instead.</dd>
+        <dt>My photo is lit unevenly. Does that matter?</dt>
+        <dd>No. INKWELL measures how the paper was lit and divides that out, so a gradient across the sheet does not leave one half grey and the other blown out. Flat window light still gives the cleanest result, and flash gives the worst.</dd>
+        <dt>Is anything uploaded?</dt>
+        <dd>No. INKWELL runs entirely in your browser. The photo is read from disk, processed on your machine, and gone when the tab closes. A signature is a credential. It does not travel.</dd>
+        <dt>Can I use a colour that is not in the presets?</dt>
+        <dd>Yes. Type any six digit hex code. The colour is applied through the extracted matte rather than sampled from the photo, so one shot of black marker produces a clean mark in whatever colour you name.</dd>
+        <dt>Can I get a vector for foil, letterpress or a cutting machine?</dt>
+        <dd>Yes, from the command line tool. Those processes are driven by a plate or a blade, so the machine needs a closed outline rather than pixels. Install it with <code>pip install inkwell-ink</code> and pass the trace flag. Vector export from this page is not finished yet.</dd>
+      </dl>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+  <script src="puddy-tools.js?v=15" data-nav="studios" defer></script>
+  <script>
+    if ('serviceWorker' in navigator && !new URLSearchParams(location.search).has('nosw')) {
+      window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js'); });
+    }
+  </script>
 </body>
 </html>

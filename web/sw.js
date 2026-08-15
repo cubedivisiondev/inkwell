@@ -10,16 +10,21 @@
  * ?nosw disables registration entirely - The Mac app embed loads it that way
  * (RULE 25), because the app serves the tool over its own privileged scheme.
  */
-const VERSION = 'inkwell-v0.3.0';
+// BUMP THIS ON EVERY DEPLOY. Fetches are cache-first, so an unchanged version
+// string serves the previous build's files forever - which is exactly what
+// happened during the SQUISH rebuild: the page was correct on disk and stale in
+// the browser, and the console blamed a line that had already been replaced.
+const VERSION = 'inkwell-v0.7.0';
 const ASSETS = [
-  '/', '/index.html', '/style/base.css',
-  '/inkwell.js', '/inkwell-app.js', '/inkwell-stars.js', '/worker.js',
-  '/puddy-tools.js?v=15',
-  '/fonts/Satoshi-Regular.woff2', '/fonts/Satoshi-Medium.woff2',
-  '/fonts/Satoshi-Bold.woff2', '/fonts/Satoshi-Black.woff',
-  '/fonts/SpaceMono-Regular.woff2', '/fonts/SpaceMono-Bold.woff2',
-  '/manifest.json', '/favicon.svg', '/puddy-logo.svg',
-  '/icons/icon-192.png', '/icons/icon-512.png',
+  './', './index.html', './styles.css',
+  './engine.js', './app.js', './worker.js',
+  './puddy-tools.js?v=15', 
+  './fonts/FuturaCyrillicBold.woff',
+  './fonts/Satoshi-Regular.woff2', './fonts/Satoshi-Medium.woff2',
+  './fonts/Satoshi-Bold.woff2',
+  './fonts/SpaceMono-Regular.woff2', './fonts/SpaceMono-Bold.woff2',
+  './manifest.webmanifest', './favicon.svg',
+  './icons/icon-192.png', './icons/icon-512.png',
 ];
 
 self.addEventListener('install', (e) => {
@@ -48,7 +53,7 @@ self.addEventListener('fetch', (e) => {
         const copy = r.clone();
         caches.open(VERSION).then((c) => c.put(req, copy));
         return r;
-      }).catch(() => caches.match(req).then((r) => r || caches.match('/index.html')))
+      }).catch(() => caches.match(req).then((r) => r || caches.match('./index.html')))
     );
     return;
   }
