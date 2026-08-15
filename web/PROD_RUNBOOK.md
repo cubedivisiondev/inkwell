@@ -14,8 +14,8 @@ page references is root-absolute, so the tool only works mounted at `/`.
 |---|---|
 | Repo | `github.com/cubedivisiondev/inkwell` PUBLIC, mirrored by `bin/mirror-apps.sh` |
 | GitHub Pages | **DISABLED 2026-08-14** - See below |
-| Dev host | `inkwell.puddy.dev` NOT CREATED - Bucket, distribution and record all pending |
-| Prod host | `inkwell.puddystudios.com` NOT CREATED |
+| Dev host | `inkwell.puddy.dev` LIVE, behind the shared PUDDY dev password gate |
+| Prod host | `inkwell.puddystudios.com` LIVE, ungated |
 | Port | 5199, claimed in RULE 20 |
 
 ### Why GitHub Pages was switched off
@@ -45,8 +45,10 @@ aws s3api put-public-access-block --bucket inkwell-dev \
 ```
 
 Origin access is OAC, never a public bucket. Copy the OAC and the password-gate
-CloudFront Function from the sunmap dev distribution (`E1NSIBF6WWQQ49`), which is
-the closest twin: same shared `puddy` cookie, same gate behavior.
+CloudFront Function from the SUNMAP dev distribution, which is the closest twin:
+same shared `puddy` cookie, same gate behavior. Distribution identifiers live in
+the private monorepo's deploy notes rather than here, because this file is public
+and an identifier in a runbook is an inventory of the estate for anyone reading.
 
 ## Step 2 - Sync and verify BEFORE the name exists
 
@@ -57,7 +59,7 @@ python3 inkwell/web/scripts/seo_check.py https://<dev-distribution-domain>
 ```
 
 The verifier must exit 0 against the distribution domain before any DNS record is
-created. Forty gates, all of them watched to fail once (GATE-FAILS).
+created. Forty eight gates, all of them watched to fail once (GATE-FAILS).
 
 ## Step 3 - DNS, last
 
@@ -70,10 +72,12 @@ python3 inkwell/web/scripts/seo_check.py https://inkwell.puddy.dev
 
 ## Step 4 - Prod cutover (REQUIRES EXPLICIT FOUNDER APPROVAL, RULE 9)
 
-Same shape against `s3://inkwell` and a prod distribution with no gate function,
-then the record on the `puddystudios.com` zone, then the verifier against
-`https://inkwell.puddystudios.com`, then the founder submits the sitemap in Search
-Console. A GitHub release follows in the same session (RULE 29 section 4).
+Executed 2026-08-14. The bucket is `inkwell-puddystudios`, not `inkwell`: that
+name is taken by another account, and the longer form matches what STARMAP and
+SUNMAP already use. The distribution carries no gate function, OAC origin access,
+a bucket policy scoped to that one distribution ARN, and 403 and 404 both
+answering `/404.html`. The record went on the `puddystudios.com` Cloudflare zone
+LAST, after the verifier had already passed against the distribution domain.
 
 The canonical tag in the served HTML already points at the prod origin regardless
 of where the page is mounted, which is deliberate: it means the dev mount can
@@ -81,5 +85,11 @@ never be indexed in place of prod.
 
 ## What must not be deployed
 
-`scripts/`, `PROD_RUNBOOK.md`, `PUDDY_INTEGRATION.md`, and any `og/_gallery.html`.
-The excludes above carry that; check them if a sync command is ever rewritten.
+`scripts/`, `PROD_RUNBOOK.md`, and `PUDDY_INTEGRATION.md`. The first is build
+tooling and the other two are operator documents, so none of them belongs on a
+public origin. The sync excludes carry this; check them if a sync command is ever
+rewritten.
+
+`_og_gallery.html` IS deployed, deliberately. It is the review affordance the
+card pipeline exists to feed, SQUISH serves its own the same way, and it carries
+a noindex so it never enters an index.

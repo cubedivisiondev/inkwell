@@ -4,13 +4,16 @@
 
 **Photograph something you wrote. Get back a transparent, print-ready mark that still looks like ink.**
 
-It never thresholds the image. The grayscale ramp of the photograph becomes the alpha channel, so the anti-aliased stroke edge survives, and so does the reason the mark reads as ink.
+No threshold is applied to the matte. The grayscale ramp of the photograph becomes the alpha channel, so the anti-aliased stroke edge survives, and so does the reason the mark reads as ink. The vector tracer is the one exception, for the reason given under [The Command Line](#the-command-line).
 
+[![Live](https://img.shields.io/badge/live-inkwell.puddystudios.com-111111.svg)](https://inkwell.puddystudios.com/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-111111.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-111111.svg)](pyproject.toml)
 [![Tests](https://github.com/cubedivisiondev/inkwell/actions/workflows/test.yml/badge.svg)](.github/workflows/test.yml)
 [![Uploads: none](https://img.shields.io/badge/uploads-none-111111.svg)](#privacy)
 [![Build deps: none](https://img.shields.io/badge/browser%20build%20deps-none-111111.svg)](#the-browser-tool)
+
+**Live: [inkwell.puddystudios.com](https://inkwell.puddystudios.com/)** - Nothing is uploaded, and it works offline once opened.
 
 <img src="docs/demo.png" alt="A photograph of ink on lit, grainy paper, the same mark extracted onto transparency, and the mark recolored white on black" width="620" />
 
@@ -94,13 +97,17 @@ Work at twice the published minimum. Sitting exactly on the 300dpi floor means a
 
 ## The Browser Tool
 
-`web/` is the whole application: three files, no build step, no dependencies, no network calls.
+**[inkwell.puddystudios.com](https://inkwell.puddystudios.com/)**
+
+`web/` is the whole application, and what is served at that address is exactly what is in this directory. No build step, no dependencies, no bundler, and no network call after the page loads. Six files carry it: the page, the stylesheet, the engine, the UI module, the worker, and a service worker that makes it work offline.
 
 ```bash
 cd web && npm run dev        # or open index.html directly
 ```
 
 The engine is a port of the Python library and produces the same matte, within a pixel or two of the same crop. It runs in a Web Worker, so a four megapixel photograph extracts without the page freezing.
+
+Pick any ink from the six presets or type a hex code, and download PNG or WEBP. Both carry a real alpha channel. Vector output is command line only, for the reason in the next section.
 
 Getting there took removing two things rather than adding any. Routing the grayscale through a full-resolution canvas purely to shrink it cost 1.2 seconds; the browser downscales the source directly in 30 milliseconds. Scaling the illumination field back up to full resolution cost a further 3.3 seconds, most of it pulling eighteen megabytes back off the GPU, to reconstruct a field that is smooth by construction and can be interpolated for the price of a few multiplies. A 4.6 megapixel photograph went from 5.7 seconds to roughly 2.
 
@@ -134,6 +141,8 @@ Color is applied from the flag rather than sampled from the photograph, so no pa
 The vector output exists for foil, letterpress, embossing, and spot varnish. Those are applied through a physical plate, and the vendor needs a closed outline to cut it from rather than a grid of pixels. A gold foil signature is a vector job or it is not a job. Tracing is the one place a threshold is correct, because a vector curve has no anti-aliasing to preserve. The curve is the edge.
 
 Tracing needs [potrace](https://potrace.sourceforge.net/) and is optional. Everything else works without it.
+
+There is no vector export in the browser, and `web/trace.js` is why. A page cannot shell out to potrace, so that file is an attempt at a contour follower written from scratch: marching squares to walk the ink boundary, then Ramer-Douglas-Peucker to drop the redundant points. It closes correctly on a filled square and on a diagonal, and it fails on any shape with a hole, because an interior contour winds opposite to an exterior one and a single direction table cannot follow both. On a real signature it emitted 474 subpaths, 472 of them under four points, which is fragments rather than outlines. The file is kept, unwired and labelled, because the walk and the simplification are both sound and what it needs is orientation-aware seeding. Use the command line for vector work until it is finished.
 
 ```bash
 brew install potrace           # macOS

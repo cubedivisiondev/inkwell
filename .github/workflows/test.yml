@@ -5,6 +5,14 @@ on:
     branches: [main]
   pull_request:
 
+# Read-only by default. This workflow builds and tests; it never writes to the
+# repository, so a fork's pull request gets a token that cannot do anything even
+# if the build is made to run arbitrary code. Note `pull_request`, deliberately,
+# and never `pull_request_target`, which would hand fork code the base repo's
+# token and secrets. No step interpolates event data into a shell command.
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
