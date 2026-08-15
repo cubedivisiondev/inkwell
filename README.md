@@ -4,7 +4,7 @@
 
 **Photograph something you wrote. Get back a transparent, print-ready mark that still looks like ink.**
 
-It never thresholds the image. The greyscale ramp of the photograph becomes the alpha channel, so the anti-aliased stroke edge survives, and so does the reason the mark reads as ink.
+It never thresholds the image. The grayscale ramp of the photograph becomes the alpha channel, so the anti-aliased stroke edge survives, and so does the reason the mark reads as ink.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-111111.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-111111.svg)](pyproject.toml)
@@ -12,9 +12,9 @@ It never thresholds the image. The greyscale ramp of the photograph becomes the 
 [![Uploads: none](https://img.shields.io/badge/uploads-none-111111.svg)](#privacy)
 [![Build deps: none](https://img.shields.io/badge/browser%20build%20deps-none-111111.svg)](#the-browser-tool)
 
-<img src="docs/demo.png" alt="A photograph of ink on lit, grainy paper, the same mark extracted onto transparency, and the mark recoloured white on black" width="620" />
+<img src="docs/demo.png" alt="A photograph of ink on lit, grainy paper, the same mark extracted onto transparency, and the mark recolored white on black" width="620" />
 
-<sub>Lit, grainy paper in. Transparent alpha out. Any colour, one matte.</sub>
+<sub>Lit, grainy paper in. Transparent alpha out. Any color, one matte.</sub>
 
 **◆ Built by [PUDDY](https://puddystudios.com) to put a sharpie signature on a printed card.**
 
@@ -24,7 +24,7 @@ It never thresholds the image. The greyscale ramp of the photograph becomes the 
 
 ## What It Is
 
-Sign your name on paper. Take a photo of it with a phone. INKWELL returns a PNG with a real alpha channel, in whatever colour you ask for, plus a vector trace for foil work and the print geometry to place it on a card.
+Sign your name on paper. Take a photo of it with a phone. INKWELL returns a PNG with a real alpha channel, in whatever color you ask for, plus a vector trace for foil work and the print geometry to place it on a card.
 
 There are two ways in. A browser tool that runs entirely on the device, and a Python library and command line for the work that belongs in a pipeline. They share an engine and produce the same matte.
 
@@ -38,11 +38,11 @@ So the ramp is kept, and used directly as the alpha channel. Every soft edge tha
 
 Two corrections have to land before that ramp is usable, and both come from the camera rather than the ink.
 
-**Paper is not white.** A phone meters for the dark marks, so a sheet of ordinary printer paper comes back around luma 185 rather than 255. Inverting that directly leaves the background sitting near 27 percent opacity: a grey veil across the entire design, visible the moment the mark is placed on anything.
+**Paper is not white.** A phone meters for the dark marks, so a sheet of ordinary printer paper comes back around luma 185 rather than 255. Inverting that directly leaves the background sitting near 27 percent opacity: a gray veil across the entire design, visible the moment the mark is placed on anything.
 
-**Lighting is not even.** There is a gradient across the sheet and texture within it. No single black point and white point corrects a gradient. Raising the floor far enough to clear the dark corner eats the thin strokes in the bright one, and lowering it far enough to keep them leaves the corner grey.
+**Lighting is not even.** There is a gradient across the sheet and texture within it. No single black point and white point corrects a gradient. Raising the floor far enough to clear the dark corner eats the thin strokes in the bright one, and lowering it far enough to keep them leaves the corner gray.
 
-Flat-field correction solves both at once, and it works because of a property of the ink itself. Dilating the image past the stroke width erases the marks entirely, because every dark pixel gets overwritten by the brighter paper around it. What remains is a map of how the sheet was lit. Blur that map, divide the original by it, and illumination normalises per pixel. The paper lands at a uniform white no matter how the photograph was taken.
+Flat-field correction solves both at once, and it works because of a property of the ink itself. Dilating the image past the stroke width erases the marks entirely, because every dark pixel gets overwritten by the brighter paper around it. What remains is a map of how the sheet was lit. Blur that map, divide the original by it, and illumination normalizes per pixel. The paper lands at a uniform white no matter how the photograph was taken.
 
 ## Finding The Cliff
 
@@ -63,7 +63,7 @@ phone number   30289 ................... 13771   ||  297, 189 ...        46x
 
 The gap is enormous, and it sits somewhere different in every image. So INKWELL finds the cliff instead of hardcoding where it should be. Sort the component sizes, take the largest consecutive ratio, cut there. It calibrates itself per photograph, and it keeps the punctuation.
 
-The limit is worth stating plainly, because it is the one case that defeats this. Scale is the only axis being used, so an artifact **larger** than the smallest real mark cannot be separated from ink by any cut along it. Worse, the cliff then lands in the wrong gap: a thumb smudge bigger than the dot over an i is kept, and the dot is lost. There is no threshold that does better on that axis. Crop the smudge out before extracting. A test pins the behaviour so nobody mistakes it for a bug that can be tuned away.
+The limit is worth stating plainly, because it is the one case that defeats this. Scale is the only axis being used, so an artifact **larger** than the smallest real mark cannot be separated from ink by any cut along it. Worse, the cliff then lands in the wrong gap: a thumb smudge bigger than the dot over an i is kept, and the dot is lost. There is no threshold that does better on that axis. Crop the smudge out before extracting. A test pins the behavior so nobody mistakes it for a bug that can be tuned away.
 
 ## Print Geometry
 
@@ -102,7 +102,7 @@ cd web && npm run dev        # or open index.html directly
 
 The engine is a port of the Python library and produces the same matte, within a pixel or two of the same crop. It runs in a Web Worker, so a four megapixel photograph extracts without the page freezing.
 
-Getting there took removing two things rather than adding any. Routing the greyscale through a full-resolution canvas purely to shrink it cost 1.2 seconds; the browser downscales the source directly in 30 milliseconds. Scaling the illumination field back up to full resolution cost a further 3.3 seconds, most of it pulling eighteen megabytes back off the GPU, to reconstruct a field that is smooth by construction and can be interpolated for the price of a few multiplies. A 4.6 megapixel photograph went from 5.7 seconds to roughly 2.
+Getting there took removing two things rather than adding any. Routing the grayscale through a full-resolution canvas purely to shrink it cost 1.2 seconds; the browser downscales the source directly in 30 milliseconds. Scaling the illumination field back up to full resolution cost a further 3.3 seconds, most of it pulling eighteen megabytes back off the GPU, to reconstruct a field that is smooth by construction and can be interpolated for the price of a few multiplies. A 4.6 megapixel photograph went from 5.7 seconds to roughly 2.
 
 ## The Command Line
 
@@ -129,7 +129,7 @@ mark.colorize((255, 255, 255)).save("signature-white.png")
 | `--margin` | Padding around the mark, as a fraction of its width. Default `0.03`. |
 | `--threshold` | Vector trace cut. Default `110`. Raster output ignores it. |
 
-Colour is applied from the flag rather than sampled from the photograph, so no paper cast survives. One photo of black marker yields a clean white mark.
+Color is applied from the flag rather than sampled from the photograph, so no paper cast survives. One photo of black marker yields a clean white mark.
 
 The vector output exists for foil, letterpress, embossing, and spot varnish. Those are applied through a physical plate, and the vendor needs a closed outline to cut it from rather than a grid of pixels. A gold foil signature is a vector job or it is not a job. Tracing is the one place a threshold is correct, because a vector curve has no anti-aliasing to preserve. The curve is the edge.
 

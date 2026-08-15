@@ -19,6 +19,7 @@ const cleanBox = $('clean'), invertBox = $('invert'), dl = $('download');
 const rSrc = $('res-src'), rOut = $('res-out'), rMarks = $('res-marks');
 const rCliff = $('res-cliff'), rCov = $('res-cov');
 const hexInput = $('hex'), hexSwatch = $('hexswatch');
+const lightbox = $('lightbox'), lbStage = $('lb-stage'), lbMeta = $('lb-meta');
 
 let result = null;
 let sourceBlob = null;
@@ -27,7 +28,7 @@ let ink = 'white';
 let customRGB = null;     // set by the hex field; overrides the preset when present
 let format = 'png';
 
-/* The colour actually painted through the matte. A typed hex wins over a preset,
+/* The color actually painted through the matte. A typed hex wins over a preset,
    which is what makes the swatches a shortcut rather than a limit. */
 function currentRGB() { return customRGB || INKS[ink]; }
 function currentHex() {
@@ -75,7 +76,7 @@ for (const [name, rgb] of Object.entries(INKS)) {
 }
 
 /* Any six digit hex. Three digit shorthand is expanded, because people type it. */
-/* The swatch is a real colour input, so a click opens the system picker and a
+/* The swatch is a real color input, so a click opens the system picker and a
    drag updates live. It and the hex field are two views of the same value: each
    writes the other, and a preset click clears both. */
 hexSwatch.addEventListener('input', () => {
@@ -114,6 +115,7 @@ for (const b of document.querySelectorAll('#format-control .seg-btn')) {
 for (const b of document.querySelectorAll('#bg-control .seg-btn')) {
   b.addEventListener('click', () => {
     thumb.className = 'thumb big ' + b.dataset.bg;
+    if (!lightbox.hidden) lbStage.className = 'lb-stage ' + b.dataset.bg;
     for (const o of document.querySelectorAll('#bg-control .seg-btn')) o.classList.toggle('is-on', o === b);
   });
 }
@@ -125,8 +127,45 @@ function fail(message) {
 
 function paint() {
   if (!result) return;
+  const hint = thumb.querySelector('.zoomhint');
   thumb.replaceChildren(colorize(result, currentRGB()));
+  if (hint) thumb.appendChild(hint);
+  if (!lightbox.hidden) paintLightbox();
 }
+
+/* The expanded view is a second render of the same matte rather than a scaled
+   copy of the inline one, so it is sharp at whatever size the window gives it. */
+function paintLightbox() {
+  if (!result) return;
+  lbStage.replaceChildren(colorize(result, currentRGB()));
+  lbStage.className = 'lb-stage ' + (thumb.className.split(' ').pop() || 'check');
+  lbMeta.textContent =
+    `${result.width} x ${result.height}  ·  ${result.kept} mark${result.kept === 1 ? '' : 's'}`
+    + `  ·  ${(result.coverage * 100).toFixed(1)}% ink  ·  ${currentHex().toUpperCase()}`;
+}
+
+function openLightbox() {
+  if (!result) return;
+  paintLightbox();
+  lightbox.hidden = false;
+  document.body.style.overflow = 'hidden';
+  $('lb-close').focus();
+}
+
+function closeLightbox() {
+  lightbox.hidden = true;
+  document.body.style.overflow = '';
+  thumb.focus();
+}
+
+thumb.addEventListener('click', openLightbox);
+thumb.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(); }
+});
+$('lb-close').addEventListener('click', closeLightbox);
+// A click on the backdrop closes; a click on the bar or the caption does not.
+lightbox.addEventListener('click', (e) => { if (e.target === lightbox || e.target === lbStage) closeLightbox(); });
+window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !lightbox.hidden) closeLightbox(); });
 
 /* The readout, in SQUISH's dl/dt/dd shape. */
 function report() {
@@ -234,19 +273,34 @@ window.addEventListener('paste', (e) => {
 cleanBox.addEventListener('change', run);
 invertBox.addEventListener('change', run);
 
-/* One download button, three formats. PNG and WEBP come off the canvas; SVG is
-   traced here in the browser rather than shelled out to potrace, which a page
-   cannot do. */
+/* One download button, two formats, both encoded off the canvas.
+ *
+ * Encoding a three megapixel canvas takes hundreds of milliseconds and PNG and
+ * WEBP do not take the same number of them, so two quick changes finish out of
+ * order: click WEBP then PNG and the WEBP callback can land last and leave the
+ * button holding a WEBP labelled .png. Every request is stamped and only the
+ * newest one is allowed to write, which makes the button always the answer to
+ * the last thing the user asked for.
+ *
+ * The old URL is revoked only once its replacement is in hand. Revoking up
+ * front left the button pointing at a dead blob for the length of the encode,
+ * and a click inside that window downloaded nothing at all. */
+let downloadToken = 0;
+
 function refreshDownload() {
   if (!result) return;
-  if (dl.href.startsWith('blob:')) URL.revokeObjectURL(dl.href);
-
+  const token = ++downloadToken;
+  const ext = format;
+  const hex = currentHex().slice(1);
   const type = format === 'webp' ? 'image/webp' : 'image/png';
+
   colorize(result, currentRGB()).toBlob((blob) => {
-    if (!blob) return;                       // WEBP is refused by a few old browsers
-    if (dl.href.startsWith('blob:')) URL.revokeObjectURL(dl.href);
+    if (token !== downloadToken) return;      // a newer request has already won
+    if (!blob) return;                        // WEBP is refused by a few old browsers
+    const previous = dl.href;
     dl.href = URL.createObjectURL(blob);
-    dl.download = `inkwell-${currentHex().slice(1)}.${format}`;
+    dl.download = `inkwell-${hex}.${ext}`;
+    if (previous.startsWith('blob:')) URL.revokeObjectURL(previous);
   }, type, 0.95);
 }
 

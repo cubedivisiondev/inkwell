@@ -46,7 +46,7 @@ aws s3api put-public-access-block --bucket inkwell-dev \
 
 Origin access is OAC, never a public bucket. Copy the OAC and the password-gate
 CloudFront Function from the sunmap dev distribution (`E1NSIBF6WWQQ49`), which is
-the closest twin: same shared `puddy` cookie, same gate behaviour.
+the closest twin: same shared `puddy` cookie, same gate behavior.
 
 ## Step 2 - Sync and verify BEFORE the name exists
 

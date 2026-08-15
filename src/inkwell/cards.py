@@ -86,15 +86,15 @@ def geometry(preset: str, dpi: int = 300) -> dict[str, tuple[int, int]]:
     return PRESETS[preset].at(dpi)
 
 
-def _dashed(draw: ImageDraw.ImageDraw, box, colour, width: int, dash: int) -> None:
+def _dashed(draw: ImageDraw.ImageDraw, box, color, width: int, dash: int) -> None:
     """Dashed rectangle, so the safe line reads differently from the trim line."""
     x0, y0, x1, y1 = box
     for x in range(x0, x1, dash * 2):
-        draw.line([x, y0, min(x + dash, x1), y0], fill=colour, width=width)
-        draw.line([x, y1, min(x + dash, x1), y1], fill=colour, width=width)
+        draw.line([x, y0, min(x + dash, x1), y0], fill=color, width=width)
+        draw.line([x, y1, min(x + dash, x1), y1], fill=color, width=width)
     for y in range(y0, y1, dash * 2):
-        draw.line([x0, y, x0, min(y + dash, y1)], fill=colour, width=width)
-        draw.line([x1, y, x1, min(y + dash, y1)], fill=colour, width=width)
+        draw.line([x0, y, x0, min(y + dash, y1)], fill=color, width=width)
+        draw.line([x1, y, x1, min(y + dash, y1)], fill=color, width=width)
 
 
 def guides(preset: str, dpi: int = 300) -> Image.Image:

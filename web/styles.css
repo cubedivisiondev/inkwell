@@ -1,6 +1,10 @@
-/* SQUISH — Puddy Studios. Brutalist cypherpunk: pure black/white, sharp edges,
-   3px borders, instant invert on hover. Fonts are LOCAL COPIES in squish/fonts/
-   (relative urls) so the tool is self-contained at any mount point. */
+/* INKWELL - Puddy Studios. This sheet is SQUISH's, adopted verbatim and then
+   extended: SQUISH is the locked standard for a PUDDY tool front end, so the
+   two sites are twins rather than cousins. Brutalist cypherpunk, pure black and
+   white, sharp edges, 3px borders, instant invert on hover. Fonts are LOCAL
+   COPIES in fonts/ (relative urls) so the tool is self-contained at any mount
+   point. INKWELL's own additions are at the foot of the file, under a header
+   that says so. Keep the shared block in sync with squish/styles.css by hand. */
 
 @font-face { font-family:'Satoshi'; src:url('fonts/Satoshi-Regular.woff') format('woff'); font-weight:400; font-display:swap; }
 @font-face { font-family:'Satoshi'; src:url('fonts/Satoshi-Bold.woff') format('woff'); font-weight:700; font-display:swap; }
@@ -205,7 +209,9 @@ body{
 .note[hidden]{ display:none; }
 .note-btn{ flex:0 0 auto; padding:8px 16px; font-size:12px; }
 
-/* SQUISH crunch — a hard vertical compress on submit (brutalist, not bouncy) */
+/* SQUISH crunch - A hard vertical compress on submit (brutalist, not bouncy).
+   Inherited with the sheet. INKWELL has no .filecard, so nothing triggers it
+   here; it stays for parity with squish/styles.css. */
 @keyframes crunch{ 0%{transform:scaleY(1)} 34%{transform:scaleY(.6) scaleX(1.05)} 68%{transform:scaleY(1.06) scaleX(.99)} 100%{transform:scaleY(1)} }
 .filecard.crunch{ animation:crunch .38s cubic-bezier(.5,0,.25,1.3); transform-origin:center bottom; }
 .error{ font-family:var(--mono); font-size:13px; border:2px solid #fff; padding:10px 12px; margin:14px 0 0; }
@@ -277,9 +283,13 @@ body{
 .hexrow{ display:flex; align-items:center; gap:10px; margin-top:14px; flex-wrap:wrap; }
 .hexlabel{ font-family:var(--mono); font-size:10px; letter-spacing:.2em; color:var(--muted); }
 .hexhash{ font-family:var(--mono); font-size:15px; color:var(--muted); margin-right:-6px; }
+/* Six characters of Space Mono plus six tracking gaps plus the padding. 9ch was
+   the character count with no allowance for the .14em tracking, so a full hex
+   code lost its last digit behind the border. */
 .hexinput{
   font-family:var(--mono); font-size:15px; letter-spacing:.14em; text-transform:uppercase;
-  background:#000; color:#fff; border:2px solid var(--line); padding:8px 10px; width:9ch; outline:0;
+  background:#000; color:#fff; border:2px solid var(--line); padding:8px 10px; outline:0;
+  width:calc(6ch + 6 * .14em + 24px);
 }
 .hexinput::placeholder{ color:rgba(255,255,255,.28); }
 .hexinput:focus{ background:rgba(255,255,255,.06); }
@@ -300,10 +310,75 @@ label.toggle input{ accent-color:#fff; width:16px; height:16px; cursor:pointer; 
 .thumb.big.dark{ background:#000; }
 .thumb.big.light{ background:#fff; }
 .thumb.big canvas{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; }
-/* The swatch IS the picker: a colour input stripped of its chrome so it reads as
+/* The swatch IS the picker: a color input stripped of its chrome so it reads as
    a square of ink rather than a form control. */
 input.hexswatch{ -webkit-appearance:none; appearance:none; width:32px; height:32px;
   padding:0; border:2px solid var(--line); background:#000; cursor:pointer; }
 input.hexswatch::-webkit-color-swatch-wrapper{ padding:0; }
 input.hexswatch::-webkit-color-swatch{ border:0; }
 input.hexswatch::-moz-color-swatch{ border:0; }
+
+/* ---- THE PREVIEW ----
+   SQUISH previews a thumbnail because the file is the point and the picture is
+   just identification. INKWELL is the other way round: the extracted mark IS the
+   deliverable, and you cannot judge an edge at 160 pixels. So the result panel
+   leads with a full-width stage, and a click opens it over the whole window. */
+.result-grid{ display:block; }
+
+#out-thumb.thumb.big{
+  width:100%; height:auto; min-height:clamp(220px,42vh,460px);
+  position:relative; display:grid; place-items:center; padding:18px;
+  margin-bottom:20px; cursor:zoom-in; overflow:auto;
+}
+#out-thumb.thumb.big canvas{
+  position:static; inset:auto; width:auto; height:auto;
+  max-width:100%; max-height:clamp(200px,40vh,430px); object-fit:contain; display:block;
+}
+.zoomhint{
+  position:absolute; right:10px; bottom:8px; font-family:var(--mono); font-size:10px;
+  letter-spacing:.16em; color:var(--muted); pointer-events:none; opacity:.75;
+}
+#out-thumb.thumb.big.light .zoomhint{ color:rgba(0,0,0,.5); }
+
+/* the result numbers sit under the stage, in a row rather than a column */
+.result-meta{ grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); }
+
+/* ---- the expanded view ---- */
+.lightbox{
+  position:fixed; inset:0; z-index:80; background:rgba(0,0,0,.94);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:clamp(16px,4vw,48px); cursor:zoom-out;
+}
+.lightbox[hidden]{ display:none; }
+.lightbox .lb-stage{
+  flex:1; width:100%; display:grid; place-items:center; overflow:auto; border:2px solid var(--line);
+}
+.lightbox .lb-stage.check{
+  background: repeating-conic-gradient(rgba(255,255,255,.10) 0 25%, transparent 0 50%) 0 0/22px 22px;
+}
+.lightbox .lb-stage.dark{ background:#000; }
+.lightbox .lb-stage.light{ background:#fff; }
+.lightbox canvas{ max-width:100%; max-height:100%; object-fit:contain; display:block; }
+.lb-bar{
+  display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+  width:100%; margin-bottom:12px; cursor:auto;
+}
+.lb-title{ font-family:var(--head); letter-spacing:.18em; font-size:clamp(15px,3vw,22px); }
+.lb-close{
+  font-family:var(--mono); font-size:12px; letter-spacing:.14em; background:#000; color:#fff;
+  border:2px solid var(--line); padding:9px 16px; cursor:pointer;
+}
+.lb-close:hover{ background:#fff; color:#000; }
+.lb-meta{ font-family:var(--mono); font-size:11px; color:var(--muted); margin-top:12px; cursor:auto; }
+/* The INKWELL glyph is a tall pen rather than a round face; give it height. */
+.drop .drop-glyph svg{ height:120px; width:auto; }
+.drop-overlay .drop-glyph svg{ height:clamp(120px,22vh,200px); width:auto; }
+
+/* PREVIEW AGAINST carries TRANSPARENT, which is four characters longer than any
+   label the shared sheet was tuned for. At 375px the three segments split the
+   row into 100px cells and the word overflows its cell by a pixel. The shared
+   560px block is SQUISH's and stays untouched; this steps the type down for the
+   narrowest phones only. */
+@media (max-width:400px){
+  .seg-btn{ font-size:12px; padding-left:6px; padding-right:6px; letter-spacing:.02em; }
+}

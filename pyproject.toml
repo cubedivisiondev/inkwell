@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "inkwell-ink"
-version = "0.2.0"
+version = "0.3.0"
 description = "Lift ink off paper and into a transparent, print-ready asset."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -37,3 +37,7 @@ packages = ["src/inkwell"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# src layout, so the package is not on sys.path until it is installed. Without
+# this, a fresh clone answers `pytest` with ModuleNotFoundError, which reads as a
+# broken project rather than an uninstalled one.
+pythonpath = ["src"]

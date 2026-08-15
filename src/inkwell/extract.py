@@ -1,6 +1,6 @@
 """Lift ink off paper and into an alpha channel.
 
-The whole library rests on one decision: the greyscale ramp of the photograph IS
+The whole library rests on one decision: the grayscale ramp of the photograph IS
 the alpha channel. It is never thresholded.
 
 Thresholding is the obvious move and it is the reason most extracted signatures
@@ -13,7 +13,7 @@ Two corrections have to land before the ramp is usable.
 
 Paper is not white. A phone meters for the dark ink, so a sheet of printer paper
 comes back around luma 185 rather than 255. Inverting that directly leaves the
-background sitting at roughly 27 percent opacity, a grey veil over the entire
+background sitting at roughly 27 percent opacity, a gray veil over the entire
 image.
 
 Lighting is not even. There is a gradient across the sheet and texture within it.
@@ -22,7 +22,7 @@ far enough to clear the dark corner eats the thin strokes in the bright one.
 
 Flat-field correction solves both at once. Dilating the image past the stroke
 width erases the ink entirely and leaves a map of how the paper was lit. Blurring
-that map and dividing the original by it normalises illumination per pixel, so
+that map and dividing the original by it normalizes illumination per pixel, so
 the paper lands at a uniform white no matter how it was shot.
 """
 
@@ -67,10 +67,10 @@ class Extraction:
         return float((self.alpha > 8).mean())
 
     def colorize(self, rgb: tuple[int, int, int]) -> Image.Image:
-        """Paint a solid colour through the matte.
+        """Paint a solid color through the matte.
 
-        The colour comes from here rather than from the photograph, so none of the
-        paper's colour cast survives into the output. That is what allows one
+        The color comes from here rather than from the photograph, so none of the
+        paper's color cast survives into the output. That is what allows one
         photo of black marker to produce a clean white or gold mark.
         """
         h, w = self.alpha.shape
@@ -91,7 +91,7 @@ class Extraction:
 def _background(gray: Image.Image) -> np.ndarray:
     """Model how the paper was lit, with the ink removed.
 
-    Greyscale dilation replaces each pixel with the brightest in its neighbourhood.
+    Grayscale dilation replaces each pixel with the brightest in its neighborhood.
     Given dark ink on light paper and a radius wider than the strokes, the ink is
     overwritten by surrounding paper and what remains is the illumination field.
     """

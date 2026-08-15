@@ -11,7 +11,7 @@ from inkwell.cli import _ink, main
 
 class TestExtract:
     def test_paper_becomes_transparent(self, inked):
-        """The point of flat-field correction. No grey veil anywhere."""
+        """The point of flat-field correction. No gray veil anywhere."""
         alpha = extract(inked).alpha
         corners = [alpha[:40, :40], alpha[:40, -40:], alpha[-40:, :40], alpha[-40:, -40:]]
         assert max(int(c.max()) for c in corners) < 24

@@ -4,7 +4,7 @@
 > still looks like ink.
 
 INKWELL extracts hand-inked marks from photographs into an alpha channel. It never
-thresholds the image. The greyscale ramp of the photograph becomes the alpha
+thresholds the image. The grayscale ramp of the photograph becomes the alpha
 channel directly, so the anti-aliased stroke edge, the pressure variation and the
 dry-marker skip all survive. A hard cut discards them and leaves a flat silhouette
 that reads as clip art.

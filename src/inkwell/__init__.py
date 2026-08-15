@@ -1,14 +1,14 @@
 """INKWELL - lift ink off paper and into a transparent, print-ready asset.
 
 Photograph something you wrote. Get back a mark with a real alpha channel, in any
-colour, plus a vector trace for foil.
+color, plus a vector trace for foil.
 
     from inkwell import extract
 
     mark = extract("signature.jpg")
     mark.colorize((255, 255, 255)).save("signature-white.png")
 
-The design note that matters: the greyscale ramp of the photograph IS the alpha
+The design note that matters: the grayscale ramp of the photograph IS the alpha
 channel, never a threshold. See inkwell.extract for why that is the whole trick.
 """
 
@@ -17,7 +17,7 @@ from .despeckle import despeckle
 from .extract import Extraction, extract
 from .trace import trace
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __all__ = [
     "extract",
     "Extraction",

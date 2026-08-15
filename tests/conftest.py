@@ -3,7 +3,7 @@
 Real test images cannot be committed here, so the fixture manufactures the same
 four properties a phone camera produces:
 
-    grey paper          luma around 185 rather than 255, because the sensor
+    gray paper          luma around 185 rather than 255, because the sensor
                         meters for the dark ink
     a lighting gradient one side of the sheet brighter than the other
     grain and specks    sensor noise, dust, and a scuff along a sheet edge

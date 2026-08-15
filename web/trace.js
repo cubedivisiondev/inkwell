@@ -19,18 +19,18 @@
  * The command line tool shells out to potrace for this. A browser cannot, so the
  * contour follower is written out here: marching squares to walk the boundary
  * between ink and paper, then Ramer-Douglas-Peucker to drop the points that sit
- * on a line already described by their neighbours.
+ * on a line already described by their neighbors.
  *
  * Vector is the one place a threshold is correct. A curve has no anti-aliasing to
  * preserve, because the curve IS the edge. Everywhere else in INKWELL the
- * greyscale ramp is kept exactly because thresholding destroys it.
+ * grayscale ramp is kept exactly because thresholding destroys it.
  *
  * Foil, letterpress, embossing and vinyl cutting all need this. Those are cut
  * from a physical plate or driven by a blade, and the machine needs a closed
  * outline rather than a grid of pixels.
  */
 
-/* Walk one closed contour from a starting edge, using the four-cell neighbourhood
+/* Walk one closed contour from a starting edge, using the four-cell neighborhood
  * to decide each turn. Standard marching squares, with the ambiguous saddle cases
  * resolved consistently so a diagonal touch never splits a stroke in two. */
 function followContour(mask, w, h, startX, startY, seen) {

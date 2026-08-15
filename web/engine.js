@@ -1,5 +1,5 @@
 /*
- * INKWELL - the extraction engine, in the browser.
+ * INKWELL - The extraction engine, in the browser.
  *
  * A direct port of the Python library. Same flat-field correction, same alpha
  * ramp, same cliff-detected despeckle, same results. It runs on the device
@@ -42,7 +42,7 @@ const surfaceOf = (ctx) => ctx.canvas;
 /*
  * Sliding-window maximum along one axis, in linear time.
  *
- * The direct form compares every element against all 2r+1 of its neighbours,
+ * The direct form compares every element against all 2r+1 of its neighbors,
  * which at r=9 is nineteen reads per pixel and profiled at 837ms. A monotonic
  * deque keeps indices in decreasing value order, so each element is pushed and
  * popped at most once and the window maximum is always at the front. The work
@@ -85,7 +85,7 @@ function luma(img, w, h) {
 /*
  * Model how the paper was lit, with the ink removed.
  *
- * Greyscale dilation replaces each pixel with the brightest nearby. Given dark
+ * Grayscale dilation replaces each pixel with the brightest nearby. Given dark
  * ink on light paper and a radius wider than the strokes, the ink is overwritten
  * by surrounding paper and what is left is the illumination field. Dividing the
  * original by that field flattens the lighting per pixel.
@@ -348,7 +348,7 @@ export function extract(img, opts = {}) {
   };
 }
 
-/** Paint a solid colour through the matte. The colour never comes from the photo,
+/** Paint a solid color through the matte. The color never comes from the photo,
  *  so no paper cast survives: one shot of black marker yields a clean white mark.
  *
  *  This one deliberately does NOT use the shared canvas factory. Its output is

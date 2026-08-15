@@ -61,6 +61,27 @@ def head(url: str) -> int:
         return 0
 
 
+def png_size(url: str) -> tuple[int, int] | None:
+    """Width and height from a PNG's IHDR, read without decoding the image.
+
+    The first 33 bytes of a PNG are fixed: an 8 byte signature, then the IHDR
+    chunk whose width and height are big-endian 32 bit integers at offsets 16
+    and 20. A ranged GET is enough, and a server that ignores Range simply sends
+    more than was asked for, which still parses.
+    """
+    req = urllib.request.Request(url, headers={"User-Agent": "inkwell-verifier/1",
+                                               "Range": "bytes=0-63"})
+    try:
+        with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
+            head_bytes = r.read(64)
+    except Exception:                                          # noqa: BLE001
+        return None
+    if len(head_bytes) < 24 or head_bytes[:8] != b"\x89PNG\r\n\x1a\n":
+        return None
+    return (int.from_bytes(head_bytes[16:20], "big"),
+            int.from_bytes(head_bytes[20:24], "big"))
+
+
 def main(base: str) -> int:
     base = base.rstrip("/")
     print(f"\ninkwell verifier against {base}\n")
@@ -181,6 +202,35 @@ def main(base: str) -> int:
     (ok if not lower_after_dash else bad)(
         "GATE 8 voice: a capital follows every ' - '"
         + (f" - FOUND {lower_after_dash}" if lower_after_dash else ""))
+
+    # --- GATE 9: the social cards exist and match what the head promises ---
+    # This gate exists because the head declared og:image at 2400x1260 while no
+    # card had been generated at all. Every other gate passed: they read the
+    # meta tags, and the meta tags were perfectly well formed. Nothing checked
+    # that the file on the other end of them was there. A share card is only
+    # ever fetched by a crawler, so a missing one is invisible until the link is
+    # already posted.
+    cards = ["og-card.png", "og-card-youtube.png", "og-card-square.png",
+             "og-card-pin.png", "og-card-story.png"]
+    missing = [c for c in cards if head(f"{base}/{c}") != 200]
+    (ok if not missing else bad)(
+        f"GATE 9 cards: all {len(cards)} social formats served"
+        + (f" - MISSING {missing}" if missing else ""))
+
+    declared = (re.search(r'og:image:width" content="(\d+)"', html),
+                re.search(r'og:image:height" content="(\d+)"', html))
+    actual = png_size(f"{base}/og-card.png")
+    if not all(declared):
+        bad("GATE 9 cards: og:image:width and og:image:height declared")
+    elif actual is None:
+        bad("GATE 9 cards: og-card.png is not a readable PNG")
+    else:
+        want = (int(declared[0].group(1)), int(declared[1].group(1)))
+        (ok if actual == want else bad)(
+            f"GATE 9 cards: og-card.png is {actual[0]}x{actual[1]}, head declares {want[0]}x{want[1]}")
+
+    (ok if head(base + "/_og_gallery.html") == 200
+     else bad)("GATE 9 cards: review gallery served at /_og_gallery.html")
 
     print(f"\n  {len(OK)} passed, {len(BAD)} failed\n")
     return 1 if BAD else 0

@@ -15,7 +15,7 @@ from .extract import extract
 from .trace import available as trace_available
 from .trace import trace
 
-# Named so a colour can be asked for by word rather than by hex.
+# Named so a color can be asked for by word rather than by hex.
 INKS: dict[str, tuple[int, int, int]] = {
     "black": (0, 0, 0),
     "white": (255, 255, 255),

@@ -11,17 +11,19 @@
  * (RULE 25), because the app serves the tool over its own privileged scheme.
  */
 // BUMP THIS ON EVERY DEPLOY. Fetches are cache-first, so an unchanged version
-// string serves the previous build's files forever - which is exactly what
+// string serves the previous build's files forever. That is exactly what
 // happened during the SQUISH rebuild: the page was correct on disk and stale in
 // the browser, and the console blamed a line that had already been replaced.
-const VERSION = 'inkwell-v0.7.0';
+const VERSION = 'inkwell-v0.3.0';
+// Everything the tool needs to run with no network, and nothing else. The OG
+// cards are deliberately absent: they are fetched by crawlers, never by the
+// page, so precaching them would cost a megabyte on install and serve nobody.
 const ASSETS = [
   './', './index.html', './styles.css',
   './engine.js', './app.js', './worker.js',
-  './puddy-tools.js?v=15', 
+  './puddy-tools.js?v=15',
   './fonts/FuturaCyrillicBold.woff',
-  './fonts/Satoshi-Regular.woff2', './fonts/Satoshi-Medium.woff2',
-  './fonts/Satoshi-Bold.woff2',
+  './fonts/Satoshi-Regular.woff', './fonts/Satoshi-Bold.woff',
   './fonts/SpaceMono-Regular.woff2', './fonts/SpaceMono-Bold.woff2',
   './manifest.webmanifest', './favicon.svg',
   './icons/icon-192.png', './icons/icon-512.png',
